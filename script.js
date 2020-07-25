@@ -23,17 +23,53 @@
 
 let numberOfFilms = +prompt('Сколько фильмов вы уже посмотрели?', ''),
     personalMovieDB = {
-        count: numberOfFilms,
+        count: (numberOfFilms === '') ? 0 : numberOfFilms,
         movies: {},
         actors: {},
         genres: [],
         privat: false
     };
 
-let movie1 = prompt('Один из последних просмотренных фильмов?', 'Logan'),
-    movieRating1 = prompt('На сколько оцените его?', 8.5),
-    movie2 = prompt('Один из последних просмотренных фильмов?', 'Logan'),
-    movieRating2 = prompt('На сколько оцените его?', 8.5);
 
-personalMovieDB.movies[movie1] = movieRating1;
-personalMovieDB.movies[movie2] = movieRating2;
+let number = 0,
+    movie,
+    movieRating;
+
+while (number < 2) {
+    movie = prompt('Один из последних просмотренных фильмов?', '');
+    movieRating = prompt('На сколько оцените его?', '');
+    if ((movie || movieRating) === '' || (movie || movieRating) === null || (movie.length || movieRating.length) > 50) {
+        movie = prompt('Один из последних просмотренных фильмов?', '');
+        movieRating = prompt('На сколько оцените его?', '');
+    }
+    personalMovieDB.movies[movie] = movieRating;
+    number++;
+}
+
+if (personalMovieDB.count < 10) {
+    alert('Просмотрено довольно мало фильмов');
+} else if (personalMovieDB.count >= 10 && personalMovieDB.count <= 30) {
+    alert('Вы классический зритель');
+} else if (personalMovieDB.count > 30) {
+    alert('Вы киноман');
+} else {
+    alert('Произошла ошибка');
+}
+
+console.log(personalMovieDB);
+
+/* Задание на урок:
+
+1) Автоматизировать вопросы пользователю про фильмы при помощи цикла
+
+2) Сделать так, чтобы пользователь не мог оставить ответ в виде пустой строки,
+отменить ответ или ввести название фильма длинее, чем 50 символов. Если это происходит - 
+возвращаем пользователя к вопросам опять
+
+3) При помощи условий проверить  personalMovieDB.count, и если он меньше 10 - вывести сообщение
+"Просмотрено довольно мало фильмов", если от 10 до 30 - "Вы классический зритель", а если больше - 
+"Вы киноман". А если не подошло ни к одному варианту - "Произошла ошибка"
+
+4) Потренироваться и переписать цикл еще двумя способами*/
+
+// Код возьмите из предыдущего домашнего задания
